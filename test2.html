@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            width: 100vw;
+            background: #6C7A89;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form{
+            margin-top: 20px;
+            width: 500px;
+            height: 300px;
+            background-color: #acbac9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #name{
+            width: 80%;
+            font-size: 1.5em;
+        }
+
+        #subject{
+            width: 80%;
+            height: 65%;
+            font-size: 1.5em;
+        }
+
+        .forum{
+            width: 380px;
+            margin-top: 50px;
+            padding: 10px;
+            border: solid 1px black;
+            background-color: #ffffff73;
+        }
+
+        .nome{
+            color: #505050;
+            margin: 10px;
+        }
+
+        .comentario{
+            margin: 10px;
+            font-size: 1.2em;
+        }
+
+        .responder{
+            width: 200px;
+            height: 30px;
+            margin: 10px;
+            border: 0;
+            font-size: 1.2em;
+            background-color: #004cff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .responder:hover{
+            background-color: #001e63;
+            transform: scale(1.02);
+        }
+
+    </style>
+</head>
+<body>
+    <form action="">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" placeholder="Digite seu nome..."/>
+        <label for="subject">Comentario:</label>
+        <textarea id="subject" placeholder="Escreva seu comentario..."></textarea>
+
+        <input type="submit" value="Submit" id="btn">
+    </form>
+
+    <div id="div1"></div>
+
+    <script>
+        const btn = document.querySelector("#btn")
+
+        const nome = document.querySelector(".nome")
+        const comentario = document.querySelector(".comentario")
+
+        function adcComentario (nome,comentario) {
+                // cria um novo elemento div
+                // e dá à ele conteúdo
+                const divForum = document.createElement("div");
+                divForum.classList.add("forum");
+                
+                const divNome = document.createElement("div");
+                divNome.classList.add("nome");
+                const nomeNovo = document.createTextNode(nome);
+                divNome.appendChild(nomeNovo);
+                
+                const divComentario = document.createElement("div");
+                divComentario.classList.add("comentario");
+                const comentarioNovo = document.createTextNode(comentario);
+                divComentario.appendChild(comentarioNovo);
+                
+                const inputButon = document.createElement("input");
+                inputButon.classList.add("responder");
+                inputButon.value = "Responder"
+                inputButon.setAttribute("type", "button");
+                
+                
+                divForum.appendChild(divNome);
+                divForum.appendChild(divComentario);
+                divForum.appendChild(inputButon);
+                
+                
+                //const conteudoNovo = document.createTextNode("Olá, cumprimentos!");
+                //divNova.appendChild(conteudoNovo); //adiciona o nó de texto à nova div criada
+
+                // adiciona o novo elemento criado e seu conteúdo ao DOM
+                var divAtual = document.getElementById("div1");
+                document.body.insertBefore(divForum, divAtual.nextSibling);
+        }
+
+        const form = document.querySelector("form")
+
+        form.addEventListener("submit", function(event){
+            event.preventDefault()
+
+            const name = document.querySelector("#name").value
+            const subject = document.querySelector("#subject").value
+
+            console.table(name,subject)
+
+            //nome.innerHTML = name
+            //comentario.innerHTML = subject
+
+            adcComentario (name,subject)
+
+        })
+
+    </script>
+</body>
+</html>

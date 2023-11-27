@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <style>
+          *{
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            width: 100vw;
+            background: #6C7A89;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form :not(formulario){
+            margin-top: 20px;
+            width: 500px;
+            height: 300px;
+            background-color: #acbac9;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #name{
+            width: 80%;
+            height: 35px;
+            font-size: 1.5em;
+            background-color: aliceblue;
+            margin: 0;
+        }
+
+        #subject{
+            width: 80%;
+            height: 150px;
+            font-size: 1.5em;
+            background-color: aliceblue;
+            margin: 0;
+        }
+
+        .forum{
+            width: 380px;
+            margin-top: 50px;
+            padding: 10px;
+            border: solid 1px black;
+            background-color: #ffffff73;
+        }
+
+        .nome{
+            color: #505050;
+            margin: 10px;
+        }
+
+        .comentario{
+            margin: 10px;
+            font-size: 1.2em;
+        }
+
+        .responder{
+            width: 200px;
+            height: 30px;
+            margin: 10px;
+            border: 0;
+            font-size: 1.2em;
+            background-color: #004cff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .responder:hover{
+            background-color: #001e63;
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="Go!!" id="bnt">
+    
+    <div class="forum" id="cmt00">
+        <div class="nome">Geovane Lopes</div>
+        <div class="comentario">Não ligue para mim, apenas testando uma coisa aqui.</div>
+        <input type="button" class="responder" value="Responder">
+    </div>
+
+    </div>
+
+    <script>
+
+        const btn = document.querySelector("#bnt")
+        var res = document.querySelectorAll(".responder")
+        var NumCmt = 0
+
+        res.forEach(button =>{
+            button.addEventListener("click", function(){
+
+                const divPai = button.parentNode
+            
+                digitarCmt ('#'+divPai.id)
+
+                envio(divPai.id)
+
+            })
+        })
+
+        function envio(divPai){
+            document.getElementById('subject').addEventListener('keyup', function(event) {
+                if (event.code === 'Enter'){
+                    event.preventDefault();
+
+                    const name = document.querySelector("#name").value
+                    const subject = document.querySelector("#subject").value
+                    adcComentario(name,subject,('#'+divPai))
+
+                    var formulario = document.getElementById('formulario')
+                    formulario.parentNode.removeChild(formulario)
+                }
+            });
+        }
+
+        function digitarCmt(divPai){
+
+            if(!document.getElementById("formulario")){
+                const divForumCmt = document.querySelector(divPai);
+
+                const forum = document.createElement("form");   
+                forum.setAttribute("id", "formulario")         
+                
+                const divNome = document.createElement("input");
+                divNome.setAttribute("id", "name")
+                divNome.setAttribute("placeholder", "Nome...")
+                
+                const space = document.createElement("br");
+
+                const divComentario = document.createElement("textarea");
+                divComentario.setAttribute('placeholder', 'Comentario...')
+                divComentario.setAttribute('id', 'subject')
+            
+                forum.appendChild(divNome);
+                forum.appendChild(space);
+                forum.appendChild(divComentario);
+                divForumCmt.appendChild(forum);
+            }
+        }
+
+        function adcComentario (nome,comentario, local) {
+      
+
+            if(local=='#div1'){
+                var divForum = document.createElement("div");
+                divForum.classList.add("forum")
+            }else{
+                var divForum = document.querySelector(local)
+            }
+
+            divForum.setAttribute("id", `Comentario${NumCmt}`)
+            NumCmt++
+
+            const divNome = document.createElement("div");
+            divNome.classList.add("nome");
+            const nomeNovo = document.createTextNode(nome);
+            divNome.appendChild(nomeNovo);
+            
+            const divComentario = document.createElement("div");
+            divComentario.classList.add("comentario");
+            const comentarioNovo = document.createTextNode(comentario);
+            divComentario.appendChild(comentarioNovo);
+            
+            if(local=="#div1"){
+                const inputButon = document.createElement("input");
+                inputButon.classList.add("responder");
+                inputButon.value = "Responder"
+                inputButon.setAttribute("type", "button");
+                divForum.appendChild(divNome);
+                divForum.appendChild(divComentario);
+                divForum.appendChild(inputButon);
+            } else{
+                divForum.appendChild(divNome);
+                divForum.appendChild(divComentario);
+            }
+
+            if(local=="#div1"){
+                const divAtual = document.querySelector("body");
+                divAtual.appendChild(divForum);
+            }
+
+            res = document.querySelectorAll(".responder")
+
+            res.forEach(button =>{
+                button.addEventListener("click", function(){
+
+                    const divPai = button.parentNode
+
+                    console.log(divPai.id)
+                
+                    digitarCmt ('#'+divPai.id)
+
+                    envio(divPai.id)
+
+                })
+            })
+        
+        }
+
+        
+
+        btn.addEventListener("click", function(event){
+            event.preventDefault()
+
+            adcComentario ("Fabio Lopes", "Muito maneiro cara, tmj!", "#div1")
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Multilíngue</title>
+</head>
+<body>
+    <h1 id="titulo">Bem-vindo!</h1>
+    <p id="conteudo">Este é um exemplo de página multilíngue.</p>
+    <button onclick="mudarIdioma('pt-br')">Português</button>
+    <button onclick="mudarIdioma('en')">English</button>
+
+    <script>
+        // Defina um objeto com as traduções para cada idioma suportado
+        const traducoes = {
+            'pt-br': {
+                'titulo': 'Bem-vindo!',
+                'conteudo': 'Este é um exemplo de página multilíngue.'
+            },
+            'en': {
+                'titulo': 'Welcome!',
+                'conteudo': 'This is an example of a multilingual page.'
+            }
+        };
+
+        // Função para alterar o idioma da página
+        function mudarIdioma(idioma) {
+            // Verifica se o idioma solicitado está disponível nas traduções
+            if (traducoes.hasOwnProperty(idioma)) {
+                // Obtém todos os elementos que têm atributo "id" definido
+                const elementos = document.querySelectorAll('[id]');
+                
+                // Itera sobre os elementos e atualiza o conteúdo com a tradução correspondente
+                elementos.forEach(elemento => {
+                    const id = elemento.id;
+                    if (traducoes[idioma][id]) {
+                        elemento.textContent = traducoes[idioma][id];
+                    }
+                });
+
+                // Define o atributo "lang" na tag HTML para refletir o idioma selecionado
+                document.documentElement.setAttribute('lang', idioma);
+            }
+        }
+
+    </script>
+</body>
+</html>

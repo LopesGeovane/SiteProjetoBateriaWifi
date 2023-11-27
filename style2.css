@@ -1,0 +1,77 @@
+
+
+form{
+    margin-top: 20px;
+    width: 500px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+}
+
+#name0, #name{
+    width: 80%;
+    height: 35px;
+    font-size: 1.1em;
+    background-color: var(--cor3);
+    margin: 0;
+}
+
+#subject0, #subject{
+    width: 80%;
+    height: 150px;
+    font-size: 1.2em;
+    background-color: var(--cor3);
+    margin: 0;
+}
+
+#name{
+    width: 85%;
+    margin-top: -20px;
+}
+
+#subject{
+    width: 85%;
+}
+
+.forum{
+    width: 380px;
+    margin-top: 50px;
+    padding: 10px;
+    border: solid 1px black;
+    background-color: #ffffff73;
+}
+
+#formulario{
+    width: 90%;
+    height: 250px;
+    padding: 8px;
+    margin-top: 0;
+}
+
+.nome{
+    color: #505050;
+    margin: 10px;
+}
+
+.comentario{
+    margin: 0px;
+    font-size: 1.2em;
+}
+
+.responder{
+    width: 150px;
+    height: 30px;
+    margin: 10px;
+    border: 0;
+    font-size: 0.8em;
+    background-color: #004cff;
+    color: white;
+    cursor: pointer;
+}
+
+.responder:hover{
+    background-color: #001e63;
+    transform: scale(1.02);
+}

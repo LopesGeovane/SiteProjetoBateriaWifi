@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drum Virtual</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+    <div id="botaoDark-mode">
+        <input type="checkbox" id="chk">
+        <div id="botao">
+            <label for="chk">
+                <div id="interruptor">
+
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <header>
+        <h1>Drum Virtual</h1>
+        <p>Projeto para a criação de um bateria Virtual</p>
+        <p id="nome"><i>Autor: Geovane Vinicius Lopes</i></p>
+    </header>
+
+    <div id="container">
+        <aside id="sumario">
+            <p>Neste artigo:</p>
+            <ul>
+                <li><a href="#Descricao">Descrição</a></li>
+                <li><a href="#Funcionamento">Funcionamento do acelerômetro</a></li>
+                <li><a href="#Metodologia">Metodologia</a></li>
+                <li><a href="#Padroes">Padrões e protocolos utilizados</a></li>
+                <li><a href="#Codigo">Código</a></li>
+                <li><a href="#Conclusao">Conclusão</a></li>
+            </ul>
+        </aside>
+        <main>
+            <h3>
+                Neste projeto, descrevemos e estudamos o trabalho realizado com o ESP01 e o acelerômetro MPU6050. O objetivo do projeto era desenvolver uma bateria virtual, onde com os dados do acelerômetro analisaria o movimento da baqueta e geraria um sinal de saída, que nesse caso foi lido por um sistema externo que tocava um instrumento.
+            </h3>
+            <h2 id="Descricao">
+                Descrição
+            </h2>
+            <h3>
+                O ESP01 é um módulo Wi-Fi baseado no chip ESP8266, desenvolvido pela empresa Espressif Systems. Ele é amplamente utilizado na área de Internet das Coisas (IoT) devido à sua capacidade de se conectar a redes sem fio e interagir com outros dispositivos e serviços online.
+                O módulo ESP01 possui um processador de baixo consumo de energia e um conjunto de recursos que o tornam uma escolha popular para projetos de IoT devido à sua facilidade de uso, tamanho compacto e baixo custo.
+            </h3>
+            <ul class="list">
+                <li>Chip ESP8266 com suporte para Wi-Fi 802.11 b/g/n.</li>
+                <li>Antena embutida para conexão sem fio.</li>
+                <li>Possui 4MB de memória flash para armazenamento de código e dados.</li>
+                <li>Interface de comunicação UART para interação com outros dispositivos.</li>
+                <li>Possui GPIOs (General Purpose Input/Output) para conexão com componentes externos.</li>
+                <li>Suporte a protocolos de rede TCP/IP.</li>
+                <li>Baixo consumo de energia.</li>
+                <li>Programável utilizando a linguagem de programação Arduino, Micropython ou linguagens de programação suportadas pelo ESP8266 SDK.</li>
+            </ul>
+            <h3>
+                O MPU6050 é um acelerômetro e giroscópio de 6 eixos, desenvolvido pela InvenSense (atualmente TDK). Ele é amplamente utilizado em projetos que envolvem medição de movimento e orientação em aplicações como drones, robótica, realidade virtual, entre outros.
+                O módulo MPU6050 combina um acelerômetro de 3 eixos e um giroscópio de 3 eixos em um único chip, permitindo a medição precisa de aceleração linear e angular.
+                Principais características do MPU6050:
+            </h3>
+            <ul class="list">
+                <li>Medição de aceleração linear em três eixos (X, Y, Z) com resolução programável.</li>
+                <li>Medição de velocidade angular em três eixos (X, Y, Z) com resolução programável.</li>
+                <li>Faixa de medição configurável para aceleração e velocidade angular.</li>
+                <li>Interface de comunicação I2C para integração com outros dispositivos.</li>
+                <li>Possui um registrador FIFO interno para armazenar dados brutos temporariamente.</li>
+                <li>Filtro passa-baixa embutido para redução de ruído.</li>
+                <li>Um sensor de temparatura.</li>
+                <li>Faixa de operação: ±2g, ±4g, ±8g (com ou sem filtro);</li>
+            </ul>
+            <h2 id="Funcionamento">
+                Funcionamento do acelerômetro
+            </h2>
+            <h3>
+                Um acelerômetro funciona segundo o princípio do efeito piezoelétrico. Imagine uma caixa cuboide com uma pequena bola dentro dela, como na foto abaixo. As paredes desta caixa são feitas de cristais piezoelétricos. Sempre que você inclina a caixa, a bola é forçada a se mover na direção da inclinação devido à gravidade. A parede com a qual a bola colide cria pequenas correntes piezoelétricas. Existem três pares de paredes opostas em um cuboide. Cada par corresponde a um eixo no espaço 3D: eixos X, Y e Z. Dependendo da corrente produzida pelas paredes piezoelétricas, podemos determinar a direção de inclinação e sua magnitude.
+            </h3>
+            <picture>
+                <img src="acelerometro.png" alt="">
+            </picture>
+            <h4>Princípio do efeito piezoelétrico.</h4>
+            <h2 id="Metodologia">
+                Metodologia
+            </h2>
+            <h3>Para a realização do projeto foi usado dois tipos de comunicações I2C(Entre o MPU6050 e o ESP-01), via UART(entre o ESP-01 e o HC-12) e via radio(Entre o HC-12 e outro HC-12). OS materias usados e a motangem foi a seguinte:</h3>
+            <ul class="list">
+                <li>Acelerômetro MPU6050.</li>
+                <li>Esp-01.</li>
+                <li>Modulo de transmissão de radio HC-12.</li>
+                <li>PowerBank</li>
+                <li>Adptador Esp-01</li>
+                <li>Jumpers para conexão</li>
+            </ul>
+            <h3>A Figura abaixo apresenta o esquemático do projeto proposto.</h3>
+            <picture>
+                <img src="estrutura.png" alt="">
+            </picture>
+            <h3>assim esse é o resultado esperado:</h3>
+            <picture>
+                <img src="esquematicoTelecom.png" alt="">
+            </picture>
+            <h2 id="Padroes">
+                Padrões e protocolos utilizados
+            </h2>
+            <h3>No projeto, foram utilizados os seguintes padrões e protocolos:</h3>
+            <ul class="list">
+                <li>Protocolo I2C para comunicação entre o ESP01 e o MPU6050.</li>
+                <li>Protocolo HTTP para transmitir os dados coletados para o servidor.</li>
+            </ul>
+            <h3>
+                com o projeto montado foi então foi-se feito o desenvolvimento do código. O código é relativamente bem simples trata apenas de um loop que pega os dodos do MPU6050 e verifica através de uma condição se é maior que um valor pre-determinado, comprido esse requisito ele envia um sinal. Esse é o resultado:
+            </h3>
+            <aside id="Codigo">
+                <pre><code class="language-c">
+        #include &lt;Adafruit_MPU6050.h&gt;
+        #include &lt;Adafruit_Sensor.h&gt;
+        #include &lt;Wire.h&gt;
+        
+        Adafruit_MPU6050 mpu;
+        
+        void setup(void) {
+        Serial.begin(9600);
+        Wire.begin(0,2);
+        while (!Serial){
+            delay(10); //
+        }
+        Serial.println("Adafruit MPU6050 test!");
+        // Try to initialize!
+        if (!mpu.begin()) {
+            Serial.println("Failed to find MPU6050 chip");
+            while (1) {
+                delay(10);
+            }
+        }
+        //Serial.println("MPU6050 Found!");
+        mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
+        mpu.setGyroRange(MPU6050_RANGE_500_DEG);
+        mpu.setFilterBandwidth(MPU6050_BAND_5_HZ);
+        delay(100);
+        }
+        
+        void loop() {
+        /* Get new sensor events with the readings */
+        if (!mpu.begin()) {
+            Serial.println("Failed to find MPU6050 chip");
+            while (1) {
+                delay(10);
+            }
+        }
+        mpu.setAccelerometerRange(MPU6050_RANGE_8_G);
+        mpu.setGyroRange(MPU6050_RANGE_500_DEG);
+        mpu.setFilterBandwidth(MPU6050_BAND_5_HZ);
+        
+        sensors_event_t a, g, temp;
+        mpu.getEvent(&a, &g, &temp);
+        if(a.acceleration.z>=9.4){
+            Serial.println("%");
+        }
+        delay(500);
+        }
+                </code></pre>
+            </aside>
+            <ul class="list">
+                <li>Linhas 1-3: Importação das bibliotecas necessárias para o MPU6050 e a comunicação I2C.</li>
+                <li>Linha 5: Criação da instância do objeto \texttt{mpu} do tipo \texttt{Adafruit\_MPU6050}.</li>
+                <li>Linhas 7-16: Função \texttt{setup} executada uma única vez no início do programa.</li>
+                <li>Linha 8: Inicialização da comunicação serial com uma taxa de transmissão de 9600 bits por segundo.</li>
+                <li>Linha 9: Inicialização da comunicação I2C nas portas 0 e 2.</li>
+                <li>Linhas 10-12: Aguarda até que a comunicação serial seja estabelecida.</li>
+                <li>Linhas 14-19: Impressão de uma mensagem no console serial.</li>
+                <li>Linhas 21-29: Verificação se o chip MPU6050 foi encontrado. Em caso negativo, uma mensagem de falha é exibida e o programa entra em um loop infinito.</li>
+                <li>Linhas 31-33: Configuração da faixa de medição do acelerômetro, giroscópio e largura de banda do filtro.</li>
+                <li>Linha 35: Pausa de 100 milissegundos.</li>
+                <li>Linhas 37-46: Função \texttt{loop} executada continuamente.</li>
+                <li>Linhas 38-39: Verificação se o chip MPU6050 foi encontrado. Em caso negativo, uma mensagem de falha é exibida e o programa entra em um loop infinito.</li>
+                <li>Linhas 41-43: Configuração da faixa de medição do acelerômetro, giroscópio e largura de banda do filtro, nesse caso usamos somente o acelerômetro que está configurado para medir ate 8g de aceleração.</li>
+                <li>Linhas 45-47: Declaração das variáveis para armazenar as leituras do acelerômetro, giroscópio e temperatura(nesse caso usamos apenas a aceleração e apenas no eixo Z, o eixo vertical).</li>
+                <li>Linha 48: Obtenção das leituras do MPU6050 e armazenamento nas variáveis correspondentes.</li>
+                <li>Linhas 50-52: Verificação se a aceleração no eixo Z é maior ou igual a 9.4$m/s^2$(Valor escolhido considerando o erro normal de medição do modulo e a já presente aceleração da gravidade). Se verdadeiro, é exibido o símbolo de percentual no console serial, que envia para o instrumento.</li>
+                <li>Linha 54: Pausa de 500 milissegundos antes de repetir o loop.</li>
+            </ul>
+            <h2 id="Conclusao">
+                Conclusão
+            </h2>
+            <h3>
+                Neste projeto, exploramos o uso do MPU6050 em conjunto com o ESP01 para realizar a leitura de dados de aceleração e acionar um sistema externo com o envio de um sinal por radio. O código apresentado demonstra como configurar e utilizar o MPU6050 para obter leituras de aceleração no eixo Z e exibir enviar um sinal quando a aceleração excede um determinado limite.
+                Ao longo do desenvolvimento, aprendemos sobre as bibliotecas necessárias, como a Adafruit-MPU6050 e a Adafruit-Sensor, para facilitar a comunicação com o MPU6050 e obter dados precisos. Além disso, entendemos a importância da configuração correta da faixa de medição do acelerômetro e giroscópio, bem como a largura de banda do filtro, para atender às necessidades do projeto.
+                O MPU6050 oferece uma solução compacta e confiável para medir aceleração e giroscópio em aplicações de sensores e movimento.
+                No entanto, é importante ressaltar que este projeto é apenas o começo, e que se pretende usar desses dados, descobertas e estudos para começar a produzir as baquetas com a placa contendo o modulo e o esp-01, acabando com erros de leitura gerado por jumpers.
+                Em suma, o MPU6050 é um componente versátil e poderoso que pode ser utilizado em uma ampla gama de aplicações, desde estabilização de voo de drones até controle de movimento em jogos e aplicações de realidade virtual. A combinação do MPU6050 com o ESP01 expande ainda mais as possibilidades de criação de projetos inovadores no campo da IoT.
+            </h3>
+
+            <h2 id="Comentarios">
+                Comentarios
+            </h2>
+
+            <div class="comentarios">
+                <form>
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name0" placeholder="Digite seu nome..."/>
+                    <label for="subject">Comentario:</label>
+                    <textarea id="subject0" placeholder="Escreva seu comentario..."></textarea>
+            
+                    <input type="button" value="Comentar" id="btnS">
+                </form>
+            </div>
+
+        </main>
+
+    </div>
+
+    <footer>Site criado por Geovane Lopes.</footer>
+
+
+    <script src="Javascript.js">
+        
+    </script>
+
+
+</body>
+</html>
